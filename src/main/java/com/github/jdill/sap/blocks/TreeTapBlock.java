@@ -1,16 +1,10 @@
 package com.github.jdill.sap.blocks;
 
-import com.github.jdill.sap.Registry;
 import com.github.jdill.sap.tileentity.TreeTapTileEntity;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.HorizontalBlock;
-import net.minecraft.block.SoundType;
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
-import net.minecraft.fluid.FluidState;
-import net.minecraft.fluid.Fluids;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer;
@@ -24,6 +18,7 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraftforge.common.ToolType;
 
@@ -75,6 +70,7 @@ public class TreeTapBlock extends Block {
 
     public TreeTapBlock() {
         super(Block.Properties.create(Material.WOOD)
+                .notSolid()
                 .hardnessAndResistance(3.5F, 4.0F)
                 .sound(SoundType.WOOD)
                 .harvestLevel(0)
@@ -97,23 +93,47 @@ public class TreeTapBlock extends Block {
         return SHAPES.get(state.get(FACING));
     }
 
+    /**
+     * Only allows the Tree Tap to be places on the solid side of blocks, and only solid blocks.
+     */
     @Override
     public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) {
-        return worldIn.getBlockState(pos.offset(state.get(FACING).getOpposite())).getMaterial().isSolid();
+        Direction direction = state.get(FACING);
+        BlockPos blockpos = pos.offset(direction.getOpposite());
+        BlockState blockstate = worldIn.getBlockState(blockpos);
+        return blockstate.isSolidSide(worldIn, blockpos, direction);
     }
 
+    /**
+     * Searches for a valid wall to place on when placed on top of a block.
+     */
     @Nullable
     public BlockState getStateForPlacement(BlockItemUseContext context) {
         BlockState blockstate = this.getDefaultState();
+        IWorldReader iworldreader = context.getWorld();
+        BlockPos blockpos = context.getPos();
         Direction[] adirection = context.getNearestLookingDirections();
+
         for(Direction direction : adirection) {
             if (direction.getAxis().isHorizontal()) {
                 Direction direction1 = direction.getOpposite();
-                return blockstate.with(FACING, direction1);
+                blockstate = blockstate.with(FACING, direction1);
+                if (blockstate.isValidPosition(iworldreader, blockpos)) {
+                    return blockstate;
+                }
             }
         }
 
         return null;
+    }
+
+
+    /**
+     * When the block the Tree Tap is placed on is broken, also break the Tree Tap.
+     */
+    @Override
+    public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
+        return facing.getOpposite() == stateIn.get(FACING) && !stateIn.isValidPosition(worldIn, currentPos) ? Blocks.AIR.getDefaultState() : stateIn;
     }
 
     @Override

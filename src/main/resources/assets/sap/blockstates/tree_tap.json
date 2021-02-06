@@ -1,0 +1,8 @@
+{
+	"variants": {
+		"facing=north": { "model": "sap:block/tree_tap" },
+		"facing=south": { "model": "sap:block/tree_tap", "y":  180},
+		"facing=west": { "model": "sap:block/tree_tap", "y":  270},
+		"facing=east": { "model": "sap:block/tree_tap", "y":  90}
+	}
+}

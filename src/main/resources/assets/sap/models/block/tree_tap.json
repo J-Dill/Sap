@@ -1,0 +1,79 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"0": "sap:blocks/tree_tap",
+		"particle": "sap:blocks/tree_tap"
+	},
+	"elements": [
+		{
+			"name": "KnobRod",
+			"from": [7, 7, 12],
+			"to": [8, 9, 13],
+			"rotation": {"angle": 0, "axis": "y", "origin": [15, 14, 20]},
+			"faces": {
+				"north": {"uv": [4, 6, 5, 8], "texture": "#0"},
+				"east": {"uv": [5, 6, 6, 8], "texture": "#0"},
+				"south": {"uv": [6, 6, 7, 8], "texture": "#0"},
+				"west": {"uv": [6, 0, 7, 2], "texture": "#0"},
+				"up": {"uv": [8, 8, 7, 7], "texture": "#0"},
+				"down": {"uv": [8, 0, 7, 1], "texture": "#0"}
+			}
+		},
+		{
+			"name": "KnobTurn1",
+			"from": [6, 8, 12],
+			"to": [9, 9, 13],
+			"rotation": {"angle": 0, "axis": "y", "origin": [16, 16, 20]},
+			"faces": {
+				"north": {"uv": [4, 4, 7, 5], "texture": "#0"},
+				"east": {"uv": [7, 1, 8, 2], "texture": "#0"},
+				"south": {"uv": [4, 5, 7, 6], "texture": "#0"},
+				"west": {"uv": [7, 4, 8, 5], "texture": "#0"},
+				"up": {"uv": [8, 3, 5, 2], "texture": "#0"},
+				"down": {"uv": [8, 3, 5, 4], "texture": "#0"}
+			}
+		},
+		{
+			"name": "KnobTurn2",
+			"from": [7, 8, 11],
+			"to": [8, 9, 14],
+			"rotation": {"angle": 0, "axis": "y", "origin": [15, 16, 21]},
+			"faces": {
+				"north": {"uv": [2, 7, 3, 8], "texture": "#0"},
+				"east": {"uv": [2, 2, 5, 3], "texture": "#0"},
+				"south": {"uv": [3, 7, 4, 8], "texture": "#0"},
+				"west": {"uv": [2, 3, 5, 4], "texture": "#0"},
+				"up": {"uv": [3, 7, 2, 4], "texture": "#0"},
+				"down": {"uv": [4, 4, 3, 7], "texture": "#0"}
+			}
+		},
+		{
+			"name": "MainTube",
+			"from": [7, 6, 10],
+			"to": [8, 7, 16],
+			"rotation": {"angle": 0, "axis": "y", "origin": [16, 14, 21]},
+			"faces": {
+				"north": {"uv": [7, 5, 8, 6], "texture": "#0"},
+				"east": {"uv": [0, 0, 6, 1], "texture": "#0"},
+				"south": {"uv": [7, 6, 8, 7], "texture": "#0"},
+				"west": {"uv": [0, 1, 6, 2], "texture": "#0"},
+				"up": {"uv": [1, 8, 0, 2], "texture": "#0"},
+				"down": {"uv": [2, 2, 1, 8], "texture": "#0"}
+			}
+		},
+		{
+			"name": "TubeDown",
+			"from": [7, 5, 9],
+			"to": [8, 6, 10],
+			"rotation": {"angle": 0, "axis": "y", "origin": [15, 12, 17]},
+			"faces": {
+				"north": {"uv": [0, 8, 1, 9], "texture": "#0"},
+				"east": {"uv": [1, 8, 2, 9], "texture": "#0"},
+				"south": {"uv": [2, 8, 3, 9], "texture": "#0"},
+				"west": {"uv": [3, 8, 4, 9], "texture": "#0"},
+				"up": {"uv": [5, 9, 4, 8], "texture": "#0"},
+				"down": {"uv": [6, 8, 5, 9], "texture": "#0"}
+			}
+		}
+	]
+}

@@ -1,6 +1,7 @@
 package com.github.jdill.sap;
 
 import com.github.jdill.sap.blocks.TreeTapBlock;
+import com.github.jdill.sap.items.SapItem;
 import com.github.jdill.sap.tileentity.TreeTapTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
@@ -36,5 +37,7 @@ public class Registry {
     //===============
     public static final RegistryObject<Item> TREE_TAP_ITEM = ITEMS.register(TreeTapBlock.ID,
             () -> new BlockItem(TREE_TAP_BLOCK.get(), new Item.Properties().group(ItemGroup.MISC)));
+
+    public static final RegistryObject<Item> SAP_ITEM = ITEMS.register(SapItem.ID, SapItem::new);
 
 }

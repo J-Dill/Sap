@@ -71,7 +71,7 @@ public class TreeTapBlock extends Block {
     public TreeTapBlock() {
         super(Block.Properties.create(Material.WOOD)
                 .notSolid()
-                .hardnessAndResistance(3.5F, 4.0F)
+                .zeroHardnessAndResistance()
                 .sound(SoundType.WOOD)
                 .harvestLevel(0)
                 .harvestTool(ToolType.AXE)

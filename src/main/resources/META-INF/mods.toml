@@ -1,0 +1,22 @@
+modLoader = "javafml"
+loaderVersion = "[36,)"
+license = "MIT License"
+[[mods]]
+modId = "sap"
+version = "${file.jarVersion}"
+displayName = "Sap"
+credits="Big shoutout to computers, without you I would have no job."
+authors="djmanly"
+description='Mod that allows customization of the Bonus Chest loot.'
+[[dependencies.sap]]
+    modId = "forge"
+    mandatory = true
+    versionRange = "[36,)"
+    ordering = "NONE"
+    side = "BOTH"
+[[dependencies.sap]]
+    modId = "minecraft"
+    mandatory = true
+    versionRange = "[1.16.5]"
+    ordering = "NONE"
+    side = "BOTH"

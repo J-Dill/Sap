@@ -27,20 +27,22 @@ public class TreeTapTileEntity extends TileEntity implements ITickableTileEntity
 
     @Override
     public void tick() {
-        tickCount++;
         World worldIn = getWorld();
-        if (tickCount == 20 && worldIn != null) {
-            Direction direction = getBlockState().get(FACING);
-            BlockPos blockpos = pos.offset(direction.getOpposite());
-            BlockState blockstate = worldIn.getBlockState(blockpos);
-            boolean isLog = blockstate.getBlock().getTags().contains(new ResourceLocation("minecraft:logs"));
-            if (isLog) {
-                Item item = Registry.SAP_ITEM.get();
-                ItemStack stack = item.getDefaultInstance();
-                ItemEntity itemEntity = new ItemEntity(worldIn, pos.getX(), pos.getY(), pos.getZ(), stack);
-                worldIn.addEntity(itemEntity);
+        if (worldIn != null && !worldIn.isRemote()) {
+            tickCount++;
+            if (tickCount == 20) {
+                Direction direction = getBlockState().get(FACING);
+                BlockPos blockpos = pos.offset(direction.getOpposite());
+                BlockState blockstate = worldIn.getBlockState(blockpos);
+                boolean isOnLog = blockstate.getBlock().getTags().contains(new ResourceLocation("minecraft:logs"));
+                if (isOnLog) {
+                    Item item = Registry.SAP_ITEM.get();
+                    ItemStack stack = item.getDefaultInstance();
+                    ItemEntity itemEntity = new ItemEntity(worldIn, pos.getX(), pos.getY(), pos.getZ(), stack);
+                    worldIn.addEntity(itemEntity);
+                }
+                tickCount = 0;
             }
-            tickCount = 0;
         }
     }
 }

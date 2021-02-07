@@ -1,9 +1,11 @@
 package com.github.jdill.sap;
 
 import com.github.jdill.sap.blocks.TreeTapBlock;
+import com.github.jdill.sap.fluids.SapFluid;
 import com.github.jdill.sap.items.SapItem;
 import com.github.jdill.sap.tileentity.TreeTapTileEntity;
 import net.minecraft.block.Block;
+import net.minecraft.fluid.Fluid;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -17,6 +19,7 @@ public class Registry {
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, Sap.MODID);
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Sap.MODID);
     public static final DeferredRegister<TileEntityType<?>> TILE_ENTITIES = DeferredRegister.create(ForgeRegistries.TILE_ENTITIES, Sap.MODID);
+    public static final DeferredRegister<Fluid> FLUIDS = DeferredRegister.create(ForgeRegistries.FLUIDS, Sap.MODID);
 
     //===============
     // Blocks
@@ -40,4 +43,8 @@ public class Registry {
 
     public static final RegistryObject<Item> SAP_ITEM = ITEMS.register(SapItem.ID, SapItem::new);
 
+    //===============
+    // Fluids
+    //===============
+    public static final RegistryObject<Fluid> SAP_FLUID = FLUIDS.register(SapFluid.ID, SapFluid::new);
 }

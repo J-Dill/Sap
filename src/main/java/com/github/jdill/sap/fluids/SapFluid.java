@@ -18,77 +18,23 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraftforge.fluids.FluidAttributes;
+import net.minecraftforge.fluids.ForgeFlowingFluid;
 
-public class SapFluid extends FlowingFluid {
+public abstract class SapFluid extends ForgeFlowingFluid {
 
-    public static final String ID = "sap_fluid";
-
-    @Override
-    public Item getFilledBucket() {
-        return Registry.SAP_BUCKET_ITEM.get();
-    }
-
-    @Override
-    public Fluid getFlowingFluid() {
-        return null;
-    }
-
-    @Override
-    public Fluid getStillFluid() {
-        return null;
-    }
-
-    @Override
-    protected boolean canDisplace(FluidState fluidState, IBlockReader blockReader, BlockPos pos, Fluid fluid, Direction direction) {
-        return false;
-    }
-
-    @Override
-    public int getTickRate(IWorldReader p_205569_1_) {
-        return 0;
-    }
-
-    @Override
-    protected float getExplosionResistance() {
-        return 0;
-    }
-
-    @Override
-    protected BlockState getBlockState(FluidState state) {
-        return null;
-    }
-
-    @Override
-    public boolean isSource(FluidState state) {
-        return false;
-    }
-
-    @Override
-    public int getLevel(FluidState state) {
-        return 0;
-    }
-
-    @Override
-    protected boolean canSourcesMultiply() {
-        return false;
-    }
-
-    @Override
-    protected void beforeReplacingBlock(IWorld worldIn, BlockPos pos, BlockState state) {
-
-    }
-
-    @Override
-    protected int getSlopeFindDistance(IWorldReader worldIn) {
-        return 0;
-    }
-
-    @Override
-    protected int getLevelDecreasePerBlock(IWorldReader worldIn) {
-        return 0;
+    protected SapFluid() {
+        super(new ForgeFlowingFluid.Properties(
+            Registry.SAP_FLUID, Registry.SAP_FLUID_FLOWING,
+            FluidAttributes.builder(
+                new ResourceLocation("block/water_still"),
+                new ResourceLocation("block/water_flow")
+            )
+        ).bucket(Registry.SAP_BUCKET_ITEM).block(Registry.SAP_FLUID_BLOCK));
     }
 
     public static class Flowing extends SapFluid {
+        public static final String ID = "sap_fluid_flowing";
+
         protected void fillStateContainer(StateContainer.Builder<Fluid, FluidState> builder) {
             super.fillStateContainer(builder);
             builder.add(LEVEL_1_8);
@@ -104,6 +50,8 @@ public class SapFluid extends FlowingFluid {
     }
 
     public static class Source extends SapFluid {
+        public static final String ID = "sap_fluid";
+
         public int getLevel(FluidState state) {
             return 8;
         }

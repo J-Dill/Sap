@@ -1,11 +1,14 @@
 package com.github.jdill.sap;
 
+import com.github.jdill.sap.blocks.SapFluidBlock;
 import com.github.jdill.sap.blocks.TreeTapBlock;
 import com.github.jdill.sap.fluids.SapFluid;
 import com.github.jdill.sap.items.SapBucketItem;
 import com.github.jdill.sap.items.SapItem;
 import com.github.jdill.sap.tileentity.TreeTapTileEntity;
 import net.minecraft.block.Block;
+import net.minecraft.block.FlowingFluidBlock;
+import net.minecraft.fluid.FlowingFluid;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
@@ -26,6 +29,8 @@ public class Registry {
     // Blocks
     //===============
     public static final RegistryObject<Block> TREE_TAP_BLOCK = BLOCKS.register(TreeTapBlock.ID, TreeTapBlock::new);
+    public static final RegistryObject<FlowingFluidBlock> SAP_FLUID_BLOCK = BLOCKS.register(
+        SapFluidBlock.ID, () -> new SapFluidBlock());
 
     //===============
     // Tile Entities
@@ -41,12 +46,12 @@ public class Registry {
     //===============
     public static final RegistryObject<Item> TREE_TAP_ITEM = ITEMS.register(TreeTapBlock.ID,
             () -> new BlockItem(TREE_TAP_BLOCK.get(), new Item.Properties().group(ItemGroup.MISC)));
-
     public static final RegistryObject<Item> SAP_ITEM = ITEMS.register(SapItem.ID, SapItem::new);
     public static final RegistryObject<Item> SAP_BUCKET_ITEM = ITEMS.register(SapBucketItem.ID, SapBucketItem::new);
 
     //===============
     // Fluids
     //===============
-    public static final RegistryObject<Fluid> SAP_FLUID = FLUIDS.register(SapFluid.ID, SapFluid::new);
+    public static final RegistryObject<FlowingFluid> SAP_FLUID = FLUIDS.register(SapFluid.Source.ID, SapFluid.Source::new);
+    public static final RegistryObject<Fluid> SAP_FLUID_FLOWING = FLUIDS.register(SapFluid.Flowing.ID, SapFluid.Flowing::new);
 }

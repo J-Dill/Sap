@@ -20,6 +20,7 @@ public class Sap {
         Registry.BLOCKS.register(modEventBus);
         Registry.ITEMS.register(modEventBus);
         Registry.TILE_ENTITIES.register(modEventBus);
+        Registry.FLUIDS.register(modEventBus);
     }
 
 }

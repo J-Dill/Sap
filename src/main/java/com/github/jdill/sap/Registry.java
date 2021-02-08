@@ -2,6 +2,7 @@ package com.github.jdill.sap;
 
 import com.github.jdill.sap.blocks.TreeTapBlock;
 import com.github.jdill.sap.fluids.SapFluid;
+import com.github.jdill.sap.items.SapBucketItem;
 import com.github.jdill.sap.items.SapItem;
 import com.github.jdill.sap.tileentity.TreeTapTileEntity;
 import net.minecraft.block.Block;
@@ -42,6 +43,7 @@ public class Registry {
             () -> new BlockItem(TREE_TAP_BLOCK.get(), new Item.Properties().group(ItemGroup.MISC)));
 
     public static final RegistryObject<Item> SAP_ITEM = ITEMS.register(SapItem.ID, SapItem::new);
+    public static final RegistryObject<Item> SAP_BUCKET_ITEM = ITEMS.register(SapBucketItem.ID, SapBucketItem::new);
 
     //===============
     // Fluids

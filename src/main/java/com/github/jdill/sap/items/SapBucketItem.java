@@ -8,11 +8,12 @@ import net.minecraft.item.Items;
 
 public class SapBucketItem extends BucketItem {
 
-  public static final String ID = "sap_bucket_item";
+    public static final String ID = "sap_bucket_item";
 
-  public SapBucketItem() {
-      super(
-          Registry.SAP_FLUID,
-          new Item.Properties().containerItem(Items.BUCKET).group(ItemGroup.MISC));
-  }
+    public SapBucketItem() {
+        super(
+                Registry.SAP_FLUID,
+                new Item.Properties().containerItem(Items.BUCKET).maxStackSize(1).group(ItemGroup.MISC)
+        );
+    }
 }

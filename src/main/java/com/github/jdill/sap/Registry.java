@@ -14,6 +14,7 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraftforge.fluids.ForgeFlowingFluid;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -52,6 +53,6 @@ public class Registry {
     //===============
     // Fluids
     //===============
-    public static final RegistryObject<FlowingFluid> SAP_FLUID = FLUIDS.register(SapFluid.Source.ID, SapFluid.Source::new);
+    public static final RegistryObject<Fluid> SAP_FLUID = FLUIDS.register(SapFluid.Source.ID, SapFluid.Source::new);
     public static final RegistryObject<Fluid> SAP_FLUID_FLOWING = FLUIDS.register(SapFluid.Flowing.ID, SapFluid.Flowing::new);
 }

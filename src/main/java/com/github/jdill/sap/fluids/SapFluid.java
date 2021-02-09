@@ -9,11 +9,16 @@ public abstract class SapFluid extends ForgeFlowingFluid {
 
     private static final FluidAttributes.Builder attributesBuilder = FluidAttributes.builder(
             new ResourceLocation("minecraft", "block/water_still"),
-            new ResourceLocation("minecraft", "block/water_flow")
-    ).density(1024).viscosity(1024);
+            new ResourceLocation("minecraft", "block/water_flow"))
+        .density(3000)
+        .viscosity(6000)
+        .color(0xB5872D);
     private static final ForgeFlowingFluid.Properties properties = new ForgeFlowingFluid.Properties(
-            Registry.SAP_FLUID, Registry.SAP_FLUID_FLOWING, attributesBuilder
-    ).bucket(Registry.SAP_BUCKET_ITEM);
+            Registry.SAP_FLUID, Registry.SAP_FLUID_FLOWING, attributesBuilder)
+        .bucket(Registry.SAP_BUCKET_ITEM)
+        .block(Registry.SAP_FLUID_BLOCK)
+        .levelDecreasePerBlock(2)
+        .tickRate(20);
 
     protected SapFluid() {
         super(properties);

@@ -53,6 +53,6 @@ public class Registry {
     //===============
     // Fluids
     //===============
-    public static final RegistryObject<Fluid> SAP_FLUID = FLUIDS.register(SapFluid.Source.ID, SapFluid.Source::new);
-    public static final RegistryObject<Fluid> SAP_FLUID_FLOWING = FLUIDS.register(SapFluid.Flowing.ID, SapFluid.Flowing::new);
+    public static final RegistryObject<ForgeFlowingFluid> SAP_FLUID = FLUIDS.register(SapFluid.Source.ID, SapFluid.Source::new);
+    public static final RegistryObject<ForgeFlowingFluid> SAP_FLUID_FLOWING = FLUIDS.register(SapFluid.Flowing.ID, SapFluid.Flowing::new);
 }

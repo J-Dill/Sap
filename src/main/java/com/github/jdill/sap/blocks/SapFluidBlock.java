@@ -12,7 +12,6 @@ public class SapFluidBlock extends FlowingFluidBlock {
     public SapFluidBlock() {
         super(Registry.SAP_FLUID,
             Block.Properties.create(Material.WATER)
-                .doesNotBlockMovement()
                 .hardnessAndResistance(100.0F)
                 .noDrops()
         );

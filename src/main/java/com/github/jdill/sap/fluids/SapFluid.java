@@ -7,36 +7,36 @@ import net.minecraftforge.fluids.ForgeFlowingFluid;
 
 public abstract class SapFluid extends ForgeFlowingFluid {
 
-    private static final FluidAttributes.Builder attributesBuilder = FluidAttributes.builder(
+    private static final FluidAttributes.Builder ATTRIBUTES_BUILDER = FluidAttributes.builder(
             new ResourceLocation("minecraft", "block/water_still"),
             new ResourceLocation("minecraft", "block/water_flow"))
         .density(3000)
         .viscosity(6000)
         .color(0xB5872D);
-    private static final ForgeFlowingFluid.Properties properties = new ForgeFlowingFluid.Properties(
-            Registry.SAP_FLUID, Registry.SAP_FLUID_FLOWING, attributesBuilder)
+    private static final ForgeFlowingFluid.Properties PROPERTIES = new ForgeFlowingFluid.Properties(
+            Registry.SAP_FLUID, Registry.SAP_FLUID_FLOWING, ATTRIBUTES_BUILDER)
         .bucket(Registry.SAP_BUCKET_ITEM)
         .block(Registry.SAP_FLUID_BLOCK)
         .levelDecreasePerBlock(2)
         .tickRate(20);
 
     protected SapFluid() {
-        super(properties);
+        super(PROPERTIES);
     }
 
     public static class Flowing extends ForgeFlowingFluid.Flowing {
         public static final String ID = "sap_fluid_flowing";
 
         public Flowing() {
-            super(properties);
+            super(PROPERTIES);
         }
     }
 
     public static class Source extends ForgeFlowingFluid.Source {
-        public static final String ID = "sap_fluid";
+        public static final String ID = "sap_fluid_still";
 
         public Source() {
-            super(properties);
+            super(PROPERTIES);
         }
 
     }

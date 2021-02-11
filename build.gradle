@@ -100,12 +100,35 @@ dependencies {
     compileOnly fg.deobf("mezz.jei:jei-${jeiMcVersion}:${jeiVersion}:api")
     // at runtime, use the full JEI jar
     runtimeOnly fg.deobf("mezz.jei:jei-${jeiMcVersion}:${jeiVersion}")
+
+    // Dark Utilities
+    implementation fg.deobf("net.darkhax.darkutilities:DarkUtilities-${mcVersion}:${darkUtilVersion}")
+    implementation fg.deobf("net.darkhax.bookshelf:Bookshelf-${mcVersion}:${bookshelfVersion}")
+
+    // Large Fluid Tank
+    implementation fg.deobf("com.kotori316:fluidtank:${fluidTankVersion}")
+    implementation "org.scala-lang:scala-library:${scalaVersion}"
+    implementation group: 'com.kotori316', name: 'ScalableCatsForce'.toLowerCase(Locale.ROOT), version: catsVersion, classifier: 'dev'
+
+    // Mekanism
+    compileOnly "mekanism:Mekanism:${mekanismVersion}:api"
+    runtimeOnly fg.deobf("mekanism:Mekanism:${mekanismVersion}")// core
 }
 
 repositories {
     maven { // Mantle, TCon, JEI
         name 'DVS1 Maven FS'
         url 'http://dvs1.progwml6.com/files/maven/'
+    }
+    maven { // Dark Utilities
+        url 'https://maven.blamejared.com'
+    }
+    maven { // Large Fluid Tank
+        name "Kotori316 Azure Maven"
+        url "https://pkgs.dev.azure.com/Kotori316/minecraft/_packaging/mods/maven/v1"
+    }
+    maven { // Mekanism
+        url 'https://modmaven.dev/'
     }
 }
 

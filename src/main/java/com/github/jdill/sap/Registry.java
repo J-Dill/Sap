@@ -31,7 +31,7 @@ public class Registry {
     //===============
     public static final RegistryObject<Block> TREE_TAP_BLOCK = BLOCKS.register(TreeTapBlock.ID, TreeTapBlock::new);
     public static final RegistryObject<FlowingFluidBlock> SAP_FLUID_BLOCK = BLOCKS.register(
-        SapFluidBlock.ID, () -> new SapFluidBlock());
+        SapFluidBlock.ID, SapFluidBlock::new);
 
     //===============
     // Tile Entities

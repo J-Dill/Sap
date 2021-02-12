@@ -8,11 +8,10 @@ import net.minecraftforge.fluids.ForgeFlowingFluid;
 public abstract class SapFluid extends ForgeFlowingFluid {
 
     private static final FluidAttributes.Builder ATTRIBUTES_BUILDER = FluidAttributes.builder(
-            new ResourceLocation("minecraft", "block/water_still"),
-            new ResourceLocation("minecraft", "block/water_flow"))
+            new ResourceLocation("sap:blocks/sap_fluid_still"),
+            new ResourceLocation("sap:blocks/sap_fluid_flowing"))
         .density(3000)
-        .viscosity(6000)
-        .color(0xB5872D);
+        .viscosity(6000);
     private static final ForgeFlowingFluid.Properties PROPERTIES = new ForgeFlowingFluid.Properties(
             Registry.SAP_FLUID, Registry.SAP_FLUID_FLOWING, ATTRIBUTES_BUILDER)
         .bucket(Registry.SAP_BUCKET_ITEM)

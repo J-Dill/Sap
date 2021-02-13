@@ -55,9 +55,6 @@ public class SapEntity extends ProjectileItemEntity implements IRendersAsItem {
         return new ItemParticleData(ParticleTypes.ITEM, this.getItem());
     }
 
-    /**
-     * Handler for {@link World#setEntityState}
-     */
     @OnlyIn(Dist.CLIENT)
     public void handleStatusUpdate(byte id) {
         if (id == 3) {

@@ -1,16 +1,24 @@
 package com.github.jdill.sap.blocks;
 
-import com.github.jdill.sap.tileentity.TreeTapTileEntity;
+import com.github.jdill.sap.Registry;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
-import net.minecraft.block.*;
+import java.util.Map;
+import java.util.Random;
+import java.util.stream.Stream;
+import javax.annotation.Nullable;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.HorizontalBlock;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Mirror;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.IBooleanFunction;
@@ -20,11 +28,13 @@ import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.ToolType;
-
-import javax.annotation.Nullable;
-import java.util.Map;
-import java.util.stream.Stream;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.FluidUtil;
+import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
 
 public class TreeTapBlock extends Block {
 
@@ -70,22 +80,13 @@ public class TreeTapBlock extends Block {
 
     public TreeTapBlock() {
         super(Block.Properties.create(Material.WOOD)
-                .notSolid()
-                .zeroHardnessAndResistance()
-                .sound(SoundType.WOOD)
-                .harvestLevel(0)
-                .harvestTool(ToolType.AXE)
+            .notSolid()
+            .zeroHardnessAndResistance()
+            .sound(SoundType.WOOD)
+            .harvestLevel(0)
+            .harvestTool(ToolType.AXE)
+            .tickRandomly()
         );
-    }
-
-    @Override
-    public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-        return new TreeTapTileEntity();
-    }
-
-    @Override
-    public boolean hasTileEntity(BlockState state) {
-        return true;
     }
 
     @Override
@@ -155,4 +156,23 @@ public class TreeTapBlock extends Block {
     public float getAmbientOcclusionLightValue(BlockState state, IBlockReader worldIn, BlockPos pos) {
         return 1f;
     }
+
+    @Override
+    public void randomTick(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) {
+        if (!worldIn.isRemote()) {
+            Direction direction = state.get(FACING);
+            BlockPos tapPos = pos.offset(direction.getOpposite());
+            BlockState tapBlockState = worldIn.getBlockState(tapPos);
+            boolean isOnLog = tapBlockState.getBlock().getTags().contains(new ResourceLocation("minecraft:logs"));
+            if (isOnLog) {
+                BlockPos downPos = pos.down();
+                LazyOptional<IFluidHandler> maybeHandler = FluidUtil
+                    .getFluidHandler(worldIn, downPos, Direction.UP);
+                maybeHandler.ifPresent(handler -> {
+                    handler.fill(new FluidStack(Registry.SAP_FLUID.get(), 50), FluidAction.EXECUTE);
+                });
+            }
+        }
+    }
+
 }

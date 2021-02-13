@@ -39,13 +39,11 @@ public class SapEntity extends ProjectileItemEntity implements IRendersAsItem {
     }
 
     @Override
-    @Nonnull
     protected Item getDefaultItem() {
         return Registry.SAP_ITEM.get();
     }
 
     @Override
-    @Nonnull
     public IPacket<?> createSpawnPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
@@ -71,7 +69,7 @@ public class SapEntity extends ProjectileItemEntity implements IRendersAsItem {
     }
 
     @Override
-    protected void onEntityHit(@Nonnull EntityRayTraceResult result) {
+    protected void onEntityHit(EntityRayTraceResult result) {
         super.onEntityHit(result);
         Entity entity = result.getEntity();
         if (entity instanceof LivingEntity) {
@@ -80,7 +78,7 @@ public class SapEntity extends ProjectileItemEntity implements IRendersAsItem {
     }
 
     @Override
-    protected void onImpact(@Nonnull RayTraceResult result) {
+    protected void onImpact(RayTraceResult result) {
         super.onImpact(result);
         if (!this.world.isRemote) {
             this.world.setEntityState(this, (byte)3);

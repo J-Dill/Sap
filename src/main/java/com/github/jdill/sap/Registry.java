@@ -2,12 +2,17 @@ package com.github.jdill.sap;
 
 import com.github.jdill.sap.blocks.SapFluidBlock;
 import com.github.jdill.sap.blocks.TreeTapBlock;
+import com.github.jdill.sap.entity.projectile.SapEntity;
 import com.github.jdill.sap.fluids.SapFluid;
 import com.github.jdill.sap.items.SapBucketItem;
 import com.github.jdill.sap.items.SapItem;
 import com.github.jdill.sap.tileentity.TreeTapTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.FlowingFluidBlock;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityClassification;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.projectile.SnowballEntity;
 import net.minecraft.fluid.FlowingFluid;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.item.BlockItem;
@@ -25,6 +30,7 @@ public class Registry {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, Sap.MODID);
     public static final DeferredRegister<TileEntityType<?>> TILE_ENTITIES = DeferredRegister.create(ForgeRegistries.TILE_ENTITIES, Sap.MODID);
     public static final DeferredRegister<Fluid> FLUIDS = DeferredRegister.create(ForgeRegistries.FLUIDS, Sap.MODID);
+    public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(ForgeRegistries.ENTITIES, Sap.MODID);
 
     //===============
     // Blocks
@@ -55,4 +61,14 @@ public class Registry {
     //===============
     public static final RegistryObject<ForgeFlowingFluid> SAP_FLUID = FLUIDS.register(SapFluid.Source.ID, SapFluid.Source::new);
     public static final RegistryObject<ForgeFlowingFluid> SAP_FLUID_FLOWING = FLUIDS.register(SapFluid.Flowing.ID, SapFluid.Flowing::new);
+
+    //===============
+    // Entities
+    //===============
+    public static final RegistryObject<EntityType<SapEntity>> SAP_ENTITY = ENTITIES.register(SapEntity.ID,
+        () -> EntityType.Builder.<SapEntity>create(SapEntity::new, EntityClassification.MISC)
+            .size(0.25F, 0.25F)
+            .trackingRange(4)
+            .setShouldReceiveVelocityUpdates(true)
+            .build(SapEntity.ID));
 }

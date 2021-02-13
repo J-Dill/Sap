@@ -1,6 +1,9 @@
 package com.github.jdill.sap;
 
+import com.github.jdill.sap.client.ClientSetup;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
@@ -21,6 +24,9 @@ public class Sap {
         Registry.ITEMS.register(modEventBus);
         Registry.TILE_ENTITIES.register(modEventBus);
         Registry.FLUIDS.register(modEventBus);
+        Registry.ENTITIES.register(modEventBus);
+
+        DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> ClientSetup::initEarly);
     }
 
 }

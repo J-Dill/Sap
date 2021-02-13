@@ -61,10 +61,13 @@ public class SapEntity extends ProjectileItemEntity implements IRendersAsItem {
     @OnlyIn(Dist.CLIENT)
     public void handleStatusUpdate(byte id) {
         if (id == 3) {
-            IParticleData iparticledata = this.makeParticle();
-
-            for(int i = 0; i < 8; ++i) {
-                this.world.addParticle(iparticledata, this.getPosX(), this.getPosY(), this.getPosZ(), 0.0D, 0.0D, 0.0D);
+            int numParticles = 5;
+            for (int i = 0; i < numParticles; ++i) {
+                this.world
+                    .addParticle(makeParticle(), this.getPosX(), this.getPosY(), this.getPosZ(),
+                        ((double) this.rand.nextFloat() - 0.5D) * 0.08D,
+                        ((double) this.rand.nextFloat() - 0.1D) * 0.08D,
+                        ((double) this.rand.nextFloat() - 0.5D) * 0.08D);
             }
         }
 

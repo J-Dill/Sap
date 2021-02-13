@@ -6,14 +6,14 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.IRendersAsItem;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.monster.BlazeEntity;
 import net.minecraft.entity.projectile.ProjectileItemEntity;
 import net.minecraft.item.Item;
 import net.minecraft.network.IPacket;
 import net.minecraft.particles.IParticleData;
 import net.minecraft.particles.ItemParticleData;
 import net.minecraft.particles.ParticleTypes;
-import net.minecraft.util.DamageSource;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
@@ -31,6 +31,11 @@ public class SapEntity extends ProjectileItemEntity implements IRendersAsItem {
 
     public SapEntity(EntityType<SapEntity> entityType, World worldIn) {
         super(entityType, worldIn);
+    }
+
+    public SapEntity(EntityType<? extends ProjectileItemEntity> type, double x, double y, double z,
+        World worldIn) {
+        super(type, x, y, z, worldIn);
     }
 
     @Override
@@ -66,11 +71,12 @@ public class SapEntity extends ProjectileItemEntity implements IRendersAsItem {
     }
 
     @Override
-    protected void onEntityHit(@Nonnull EntityRayTraceResult p_213868_1_) {
-        super.onEntityHit(p_213868_1_);
-        Entity entity = p_213868_1_.getEntity();
-        int i = entity instanceof BlazeEntity ? 3 : 0;
-        entity.attackEntityFrom(DamageSource.causeThrownDamage(this, this.func_234616_v_()), (float)i);
+    protected void onEntityHit(@Nonnull EntityRayTraceResult result) {
+        super.onEntityHit(result);
+        Entity entity = result.getEntity();
+        if (entity instanceof LivingEntity) {
+            ((LivingEntity) entity).addPotionEffect(new EffectInstance(Effects.SLOWNESS, 100));
+        }
     }
 
     @Override

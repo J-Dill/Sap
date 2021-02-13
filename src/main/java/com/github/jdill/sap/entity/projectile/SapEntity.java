@@ -1,6 +1,7 @@
 package com.github.jdill.sap.entity.projectile;
 
 import com.github.jdill.sap.Registry;
+import javax.annotation.Nonnull;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.IRendersAsItem;
@@ -33,11 +34,13 @@ public class SapEntity extends ProjectileItemEntity implements IRendersAsItem {
     }
 
     @Override
+    @Nonnull
     protected Item getDefaultItem() {
         return Registry.SAP_ITEM.get();
     }
 
     @Override
+    @Nonnull
     public IPacket<?> createSpawnPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
@@ -63,7 +66,7 @@ public class SapEntity extends ProjectileItemEntity implements IRendersAsItem {
     }
 
     @Override
-    protected void onEntityHit(EntityRayTraceResult p_213868_1_) {
+    protected void onEntityHit(@Nonnull EntityRayTraceResult p_213868_1_) {
         super.onEntityHit(p_213868_1_);
         Entity entity = p_213868_1_.getEntity();
         int i = entity instanceof BlazeEntity ? 3 : 0;
@@ -71,7 +74,7 @@ public class SapEntity extends ProjectileItemEntity implements IRendersAsItem {
     }
 
     @Override
-    protected void onImpact(RayTraceResult result) {
+    protected void onImpact(@Nonnull RayTraceResult result) {
         super.onImpact(result);
         if (!this.world.isRemote) {
             this.world.setEntityState(this, (byte)3);

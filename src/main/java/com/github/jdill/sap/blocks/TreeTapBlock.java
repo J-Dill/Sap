@@ -172,15 +172,21 @@ public class TreeTapBlock extends Block {
                 LazyOptional<IFluidHandler> maybeHandler = FluidUtil
                     .getFluidHandler(worldIn, downPos, Direction.UP);
                 maybeHandler.ifPresent(handler -> {
-                    int amount = handler
-                        .fill(new FluidStack(Registry.SAP_FLUID.get(), 50), FluidAction.SIMULATE);
+                    int amount = handler.fill(new FluidStack(Registry.SAP_FLUID.get(), 50), FluidAction.SIMULATE);
                     if (amount > 0) {
-                        worldIn.spawnParticle(new ItemParticleData(ParticleTypes.ITEM, new ItemStack(Registry.SAP_ITEM.get())),
-                            pos.getX(), pos.getY(), pos.getZ(), 3, 0D, 0.5D, 0.5D, .001D);
+                        handler.fill(new FluidStack(Registry.SAP_FLUID.get(), 50), FluidAction.EXECUTE);
+                        worldIn.spawnParticle(makeSapParticle(),
+                            pos.getX()+0.5D, pos.getY()+0.35D, pos.getZ()+0.5D,
+                            3, 0D, 0D, 0D, 0D
+                        );
                     }
                 });
             }
         }
+    }
+
+    private static ItemParticleData makeSapParticle() {
+        return new ItemParticleData(ParticleTypes.ITEM, new ItemStack(Registry.SAP_ITEM.get()));
     }
 
 }

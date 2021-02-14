@@ -14,6 +14,9 @@ import net.minecraft.block.HorizontalBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.item.ItemStack;
+import net.minecraft.particles.ItemParticleData;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.util.Direction;
@@ -169,7 +172,12 @@ public class TreeTapBlock extends Block {
                 LazyOptional<IFluidHandler> maybeHandler = FluidUtil
                     .getFluidHandler(worldIn, downPos, Direction.UP);
                 maybeHandler.ifPresent(handler -> {
-                    handler.fill(new FluidStack(Registry.SAP_FLUID.get(), 50), FluidAction.EXECUTE);
+                    int amount = handler
+                        .fill(new FluidStack(Registry.SAP_FLUID.get(), 50), FluidAction.SIMULATE);
+                    if (amount > 0) {
+                        worldIn.spawnParticle(new ItemParticleData(ParticleTypes.ITEM, new ItemStack(Registry.SAP_ITEM.get())),
+                            pos.getX(), pos.getY(), pos.getZ(), 3, 0D, 0.5D, 0.5D, .001D);
+                    }
                 });
             }
         }
